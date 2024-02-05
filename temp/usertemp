@@ -1,0 +1,107 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import toast from 'react-hot-toast';
+import authService from '../services/auth.service';
+import SideBar from './Sidebar.component';
+import '../styles/tables.css';
+import SearchBox from './seachBox.component';
+import { useNavigate } from 'react-router-dom';
+
+const RedirectButton = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // Redirect to the desired page
+    navigate('/adduser');
+  };
+
+  return <button onClick={handleClick}>Add User</button>;
+};
+
+
+const UserComponent = () => {
+  const [users, setUsers] = useState([]);
+  const [searchActive, setSearchActive] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+
+  const fetchProfile = useCallback(async () => {
+    try {
+      const result = await authService.getUser();
+      console.log(result.data);
+      setUsers(result.data);
+    } catch (error) {
+      toast.error(error.data.message);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  const handleSearch = (results) => {
+    setSearchResults(results);
+    setSearchActive(true);
+  };
+
+  return (
+    <div className="row">
+      <div>
+        <SideBar />
+      </div>
+      <div>
+        <RedirectButton />
+        <SearchBox handleSearch={handleSearch} searchActive={searchActive} />
+        {searchActive ? (
+          <div>
+            {searchResults.length > 0 ? ( // Check if there are search results
+              <div>
+                <h2 className="text-center">Search Results</h2>
+                {/* Render search results table */}
+                <table className="table mx-auto">
+                  {/* ... render headers ... */}
+                  <tbody>
+                    {searchResults.map((result) => (
+                      <tr key={result.id}>
+                        <td>{result.id}</td>
+                        <td>{result.name}</td>
+                        <td>{result.email}</td>
+                        <td>{result.contactNumber}</td>
+                        <td>{result.password}</td>
+                        <td>{result.status}</td>
+                        <td>{result.role}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p>No results found.</p> // Display a message when no results are found
+            )}
+          </div>
+        ) : (
+          <div>
+            <h2 className="text-center">User Table</h2>
+            {/* Render user table */}
+            <table className="table mx-auto">
+              {/* ... render headers ... */}
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.contactNumber}</td>
+                    <td>{user.password}</td>
+                    <td>{user.status}</td>
+                    <td>{user.role}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default UserComponent;

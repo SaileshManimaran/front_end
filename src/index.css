@@ -1,0 +1,7 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+:root {
+    --bodyColor: "#000000";
+}
+body {
+    background-color: var(--bodyColor);
+}

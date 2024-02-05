@@ -1,0 +1,71 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import toast from 'react-hot-toast';
+import authService from '../services/auth.service';
+import SideBar from './Sidebar.component';
+import '../styles/tables.css';
+import { useNavigate } from 'react-router-dom';
+
+const RedirectButton = () => {
+  const Navigate = useNavigate();
+
+  const handleClick = () => {
+    // Redirect to the desired page
+    Navigate('/addCategory');  };
+
+  return (
+    <button  onClick={handleClick}>Add Category</button>
+  );
+};
+const CategoryComponent = () => {
+  const [users, setUsers] = useState([]);
+
+  const fetchProfile = useCallback(async () => {
+    try {
+      const result = await authService.getCategory();
+      console.log(result.data);
+      setUsers(result.data);
+    } catch (error) {
+      toast.error(error.data.message);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  return (
+    <div className="row">
+      <div >
+        <SideBar />
+      </div>
+      <div>
+      <RedirectButton />
+            
+        <h2 className="text-center">Category Table</h2>
+        <table className='table mx-auto'>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+                <th>Status</th>
+            
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+  
+    </div>
+
+  );
+};
+
+export default CategoryComponent;

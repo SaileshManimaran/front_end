@@ -1,0 +1,9 @@
+.form-container {
+    max-width: 400px; /* Set the maximum width of the form container */
+    margin: 10px auto; /* Center the form container */
+    padding: 20px; /* Add padding for spacing inside the container */
+    border: 1px solid #ddd; /* Add a border around the form container */
+    border-radius: 10px; /* Add rounded corners to the form container */
+    box-shadow: 0 100px 1000px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow for depth */
+     /* Set the background color of the form container */
+  }

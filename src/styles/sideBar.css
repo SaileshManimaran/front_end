@@ -1,0 +1,35 @@
+
+.sidebar {
+    background: red;
+    position: fixed;
+    left: 0;
+    top: 0; /* Position the sidebar at the top */
+    color: #fff;
+    width: 100%; /* Make the sidebar full width */
+    height:100%;
+    z-index: 2;
+    transition: width 0.5s;
+  }
+.sub_menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff; /* Adjust the background color as needed */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    display: none;
+  }
+  
+  .sub_link {
+    padding: 10px;
+    text-decoration: none;
+    color: #333; /* Adjust the text color as needed */
+    display: block;
+  }
+  
+  /* Show the sub menu when the parent link is hovered */
+
+
+  .sub_text{
+    color: blue;
+  }

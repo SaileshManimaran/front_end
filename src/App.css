@@ -1,0 +1,165 @@
+/* Reset some default styles */
+/* * {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+  
+} */
+
+/* header {
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+background: black;
+  padding: 20px;
+  text-align: center;
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+
+
+  margin-left: 50px;
+} */
+
+
+
+
+
+
+
+.top_section {
+  display: flex;
+  align-items: center;
+  padding: 20px 15px;
+}
+
+.logo {
+  font-size: 30px;
+}
+
+.bars {
+  display: flex;
+  font-size: 25px;
+  margin-left: 50px;
+}
+
+.link {
+  display: flex;
+  color: #fff;
+  padding: 10px 15px;
+  gap: 15px;
+  transition: all 0.5s;
+}
+
+.link:hover {
+  background: white;
+  color: #000;
+  transition: all 0.5s;
+}
+
+.active {
+  background:whitesmoke;
+  color: #000;
+}
+
+.icon,
+.link_text {
+  font-size: 20px;
+}
+.nav-h1{
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif, Sans-Serif;
+    color: #ff0000df;
+    font-size: 30pt;
+    background-color: #FAFAFA;
+}
+/* for dropdown in user comp */
+/* Style for the dropdown container */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+  padding: 10px 16px;
+
+}
+
+/* Style for the dropdown button */
+.dropdown-button {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 150px; /* Adjust the width as needed */
+  background-color: #fff; /* Dropdown button background color */
+  color: #333; /* Dropdown button text color */
+}
+
+/* Style for the dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 150px; /* Adjust the width as needed */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Style for the dropdown items */
+.dropdown-item {
+  padding: 10px 16px;
+  display: block;
+  cursor: pointer;
+  color: #333; /* Dropdown item text color */
+}
+
+/* Style for the dropdown items on hover */
+.dropdown-item:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown content when the dropdown button is clicked or hovered */
+.dropdown-container:hover .dropdown-content {
+  display: block;
+}
+/* drop down of user comp */
+
+/* logout btn */
+.logout-button {
+  color: white;
+  background-color: red;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: black;
+}
+
+.addUser{
+  background-color: rgb(0, 51, 255);
+  color:white
+}
+
+.addUser:hover{
+ 
+  background: rgb(78, 2, 2);
+  color: white;
+  transition: all 0.5s;
+}
+
+/* logout btn */
+
+/* searchButton */
+.searchButton{
+  background-color: rgb(0, 51, 255);
+  color:white
+}
+.searchButton:hover{
+  background: rgb(78, 2, 2);
+  color: white;
+  transition: all 0.5s;
+}

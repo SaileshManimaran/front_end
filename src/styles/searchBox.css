@@ -1,0 +1,10 @@
+.container_searchBox {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between; /* Add space between the items */
+  }
+  
+  .searchBarContainer {
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+  
