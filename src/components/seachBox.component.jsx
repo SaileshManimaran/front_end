@@ -52,6 +52,10 @@ const SearchBar = ({ onSearch, searchActive ,compType}) => {
       return `http://localhost:8080/user/vendors/getOne/${contactNumber}`;
     }
 
+    else if (compType === "City") {
+      return `http://localhost:8080/user/city/getOne/${contactNumber}`;
+    }
+
     else {
       return `http://localhost:8080/user/getOne/${contactNumber}`;
     }
@@ -71,7 +75,7 @@ const SearchBar = ({ onSearch, searchActive ,compType}) => {
   <div className="searchBarContainer">
     <input
       type="text"
-      placeholder="Enter contact number"
+      placeholder="Search"
       value={contactNumber}
       onChange={(e) => setContactNumber(e.target.value)}
       className="input_searchBox"

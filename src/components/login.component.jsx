@@ -41,30 +41,34 @@ const LoginComponent = () => {
     }
     setIsSubmitted(false);
   };
-  setBodyColor({imageUrl: "https://cdn.pixabay.com/photo/2016/06/02/02/33/triangles-1430105_1280.png"})
-
-
+ 
+    setBodyColor({ imageUrl: 'https://media.istockphoto.com/id/1319844646/vector/grey-cement-texture-of-floor-vector-3d-backdrop-of-gray-concrete-wall-room-surface-with.jpg?s=612x612&w=0&k=20&c=JTiP-TB-iz797sgwZMkjDFzPGr4H86NrnJbvyczoOi8=' });
+  
   return (
 
       <motion.div initial={{opacity:0}}
       animate={{opacity:1}}
       exit={{opacity:0}}
       >
-        <div className='login-page'>
-          <form id="loginform" onSubmit={handleSubmit(handleValidSubmit)}>
-      <h2 id="headerTitle">Login</h2>
-            <div className="row">
-              <label htmlFor="inputEmail" >Email address</label>
-              <input type="email"  id="inputEmail" placeholder='Enter your email' {...register('email')} />
-              <div className="form-text text-danger">
-                {errors.email && <p>{errors.email.message}</p>}
+        <div className='login-page' >
+          <form id="loginform" onSubmit={handleSubmit(handleValidSubmit)}style={{ 
+      backgroundImage: `url("https://img.freepik.com/premium-vector/futuristic-technology-background_41981-444.jpg")` 
+    }}>
+          <center><img src="logo.png" className='logo_login'  alt="logo" />
+          </center>     
+            <div className="row"  >
+      <h6 id="headerTitle"></h6>
+              <label htmlFor="inputEmail" style={{color:"black"}} >Email address</label>
+              <input type="email"  id="inputEmail" placeholder='Enter your email' {...register('email')} style={{margin:"0px"}} />
+              <div className="form-text text-danger"  >
+        {errors.email && <p style={{marginLeft:"30px"}}>{errors.email.message}</p>}
               </div>
             </div>
             <div className="row">
-              <label htmlFor="inputPassword" >Password</label>
-              <input type="password"  id="inputPassword" placeholder='Enter your password' {...register('password')} />
+              <label htmlFor="inputPassword" style={{color:"black",fontStyle:"normal"}}>Password</label>
+              <input type="password"  id="inputPassword" placeholder='Enter your password' {...register('password')}  style={{margin:"0px"}} />
               <div className="form-text text-danger">
-                {errors.password && <p>{errors.password.message}</p>}
+                {errors.password && <p style={{marginLeft:"30px"}}>{errors.password.message}</p>}
               </div>
             </div>
             <div id="button" className="row">
@@ -74,7 +78,7 @@ const LoginComponent = () => {
             <div id="alternativeLogin">
    
     <div id="iconGroup">
-    <a href="/register"><label>Or sign up here</label></a>
+    {/* <a href="/register"><label>Or sign up here</label></a> */}
     </div>
   </div>
           </form>

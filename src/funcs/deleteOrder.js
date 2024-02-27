@@ -2,6 +2,7 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import authService from '../services/auth.service';
 import ErrorBoundary from './ErrorBoundary';
+import { redirect,useNavigate } from 'react-router-dom';
 const DeleteOrder = ({ order ,onOrderDeleted }) => {
   const [isDeleting, setDeleting] = React.useState(false);
 
@@ -13,11 +14,12 @@ const DeleteOrder = ({ order ,onOrderDeleted }) => {
        const orderId=order.id;
         await authService.deleteOrder({ orderId });
         toast.success('Order deleted successfully');
+       
         onOrderDeleted(orderId);
         // Optionally, you can reload the order list or update the state accordingly
       } catch (error) {
         console.log(order.id);
-        toast.error('Error deleting order');
+        // toast.error('Error deleting order');
         console.log(error);
       } finally {
         setDeleting(false);

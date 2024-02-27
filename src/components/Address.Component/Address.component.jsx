@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
-import authService from '../services/auth.service';
-import SideBar from './Sidebar.component';
-
-import SearchBox from './seachBox.component';
+import authService from '../../services/auth.service';
+import SideBar from '../Sidebar.component';
+import DeleteAddress from './DeleteAddress';
+import SearchBox from '../seachBox.component';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import setBodyColor from '../funcs/setBodyColor';
-import NavBarComponent from './nav-bar.component';
+import setBodyColor from '../../funcs/setBodyColor';
+import NavBarComponent from '../nav-bar.component';
 
 const RedirectButton = () => {
   const navigate = useNavigate();
@@ -20,12 +20,28 @@ const RedirectButton = () => {
   return <button className='btn btn-primary btn-md mt-1' onClick={handleClick}>Add Address</button>;
 };
 
+
+
+
+const RedirectToEditAddress = ({address}) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    console.log(address);
+    // Redirect to the desired page with the users prop
+    navigate('/editAddress', { state: { address } });
+  };
+
+  return <button onClick={handleClick} className='editButton'>Edit</button>;
+};
 const AddressComponent = () => {
   const [users, setUsers] = useState([]);
   const [searchActive, setSearchActive] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [value, setValue] = useState("");
   const [tempUsers, setTempUsers] = useState([]);
+const [address,setAddresses]=useState([]);
+const [addressCount,setAddressCount]=useState([]);
   const [compType, setCompType] = useState('Address');
   const fetchProfile = useCallback(async () => {
     try {
@@ -69,7 +85,11 @@ const AddressComponent = () => {
   };
 
   setBodyColor({ imageUrl: "https://img.freepik.com/free-photo/background_53876-32170.jpg?size=626&ext=jpg" });
-
+  const handleAddressDeleted = (deletedAddressId) => {
+    // Assuming cities and cityCount are your state variables
+    setUsers((prevAddresses) => prevAddresses.filter((address) => address.id !== deletedAddressId));
+    setAddressCount((prevCount) => prevCount - 1);
+  };
   return (
     <motion.div initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -160,6 +180,7 @@ const AddressComponent = () => {
                         <th>City</th>
                         <th>Pincode</th>                        
                         <th>Status</th>
+                        <th>Action</th>
                        
                       </tr>
                     </thead>
@@ -176,6 +197,8 @@ const AddressComponent = () => {
                               <td>{result.city}</td>
                               <td>{result.pincode}</td>
                           <td>{result.status}</td>
+                          <td><RedirectToEditAddress address={result} />
+                  <DeleteAddress address={result} onAddressDeleted={handleAddressDeleted}/></td>
                         </tr>
                       ))}
                     </tbody>

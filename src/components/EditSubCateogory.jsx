@@ -74,7 +74,10 @@ const EditSubCategoryComponent = () => {
       subcategory_name: '',
       status: ''
     });
+  };const handleGoBack = () => {
+    navigate('/subcategory'); // Go back one step in history
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>
@@ -95,7 +98,10 @@ const EditSubCategoryComponent = () => {
           <input type="text" name="status" value={formData.status} onChange={handleChange} />
         </label>
 
-        <button type="submit">Submit</button>
+      </div>
+      <div >
+        <button type=" btn btn-success button" onClick={handleGoBack}>Back</button>
+        <button type="submit" style={{ marginLeft:"210px"}} >Submit</button>
       </div>
     </form>
   );

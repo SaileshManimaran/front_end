@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import '../styles/addUser.css';
-import '../styles/forms.css';
+import '../../styles/addUser.css';
+import '../../styles/forms.css';
 import toast from 'react-hot-toast';
-import authService from '../services/auth.service';
-import Sidebar from './Sidebar.component';
+import authService from '../../services/auth.service';
+import Sidebar from '../Sidebar.component';
 const UserForm = () => {
   const navigate=useNavigate();
   const [formData, setFormData] = useState({
@@ -51,15 +51,18 @@ const UserForm = () => {
        
     });
   };
+
+  const handleGoBack = () => {
+    navigate('/order'); // Go back one step in history
+  };
   
   
 
   return (
-      <div className='card mrg_bottom' >
-        <h3 className='p-2 bd-highlight'>Add new order</h3>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{marginTop:"30px"}}>
       <div><Sidebar/></div>
-     <div> <label>
+        <h3 className='p-2 bd-highlight' style={{textAlign:"center"}}>Add new order</h3>
+     <div className='form-container'>  <label>
         Name:
         <input type="text" name="user_name" value={formData.user_name} onChange={handleChange} />
       </label>
@@ -108,14 +111,12 @@ const UserForm = () => {
 
       
 
-  
-
-      
-
-      <button type="submit">Submit</button>
+      </div>
+      <div >
+        <button type=" btn btn-success button" onClick={handleGoBack}>Back</button>
+        <button type="submit" style={{ marginLeft:"210px"}} >Submit</button>
       </div>
     </form>
-    </div>
   );
 };
 

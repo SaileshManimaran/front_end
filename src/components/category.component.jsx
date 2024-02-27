@@ -43,7 +43,7 @@ const CategoryComponent = () => {
       navigate('/editCategory', { state: { category } });
     };
   
-    return <button onClick={handleClick} className='editButton'>Edit User</button>;
+    return <button onClick={handleClick} className='editButton'>Edit</button>;
   };
   const handleCategoryDeleted = (deletedCategoryId) => {
     // Update the categories state by removing the deleted category
@@ -183,7 +183,7 @@ const CategoryComponent = () => {
                     
                     
                     <td>{user.status}</td>
-                    <td><RedirectToEditCategory category={user} />
+                    <td><RedirectToEditCategory category={user} />{  "  "}
                   <DeleteCategory category={user} onCategoryDeleted={handleCategoryDeleted}/></td>
                    
                   </tr>

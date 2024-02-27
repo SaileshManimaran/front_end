@@ -42,7 +42,8 @@ const AddService = () => {
           console.log('Fetched subcategories:', subcategories);
         }
       } catch (error) {
-        console.error('Error fetching subcategories:', error);
+        
+        console.error('Error fetching subcategories:', error,subcategories);
       }
     };
 
@@ -88,15 +89,19 @@ const AddService = () => {
       status: '',
     });
   };
+  const handleGoBack = () => {
+    navigate('/service'); // Go back one step in history
+  };
+  
 
   return (
-    <div className='card mrg_bottom'>
-      <h3 className='p-2 bd-highlight'>Add new service</h3>
-      <form onSubmit={handleSubmit}>
+ 
+    <form onSubmit={handleSubmit}>
+        <h3 className='p-2 bd-highlight'>Add new service</h3>
         <div>
           <Sidebar />
         </div>
-        <div>
+        <div className='form-container'>
           <label>
             Category Name:
             <select
@@ -167,10 +172,12 @@ const AddService = () => {
             </select>
           </label>
 
-          <button type="submit">Submit</button>
         </div>
+        <div >
+        <button type=" btn btn-success button" onClick={handleGoBack}>Back</button>
+        <button type="submit" style={{ marginLeft:"210px"}} >Submit</button>
+      </div>
       </form>
-    </div>
   );
 };
 

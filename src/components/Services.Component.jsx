@@ -1,22 +1,18 @@
-// ServiceComponent.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
 import authService from '../services/auth.service';
 import SideBar from './Sidebar.component';
 import SearchBox from './seachBox.component';
 import { useNavigate } from 'react-router-dom';
-// import EditServiceComponent from './EditService.component'; // Change the import statement accordingly
 import NavBarComponent from './nav-bar.component';
 import { motion } from 'framer-motion';
-// import DeleteService from '../funcs/deleteService'; // Change the import statement accordingly
-import setBodyColor from '../funcs/setBodyColor';
 import DeleteService from '../funcs/deleteService';
+import setBodyColor from '../funcs/setBodyColor';
 
 const RedirectButton = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    // Redirect to the desired page
     navigate('/addService');
   };
 
@@ -31,26 +27,27 @@ const RedirectToEditService = ({ service }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    // Redirect to the desired page with the service prop
     navigate(`/editService/${service.id}`, { state: { service } });
   };
 
   return <button onClick={handleClick} className='editButton'>Edit Service</button>;
 };
 
-const ServiceComponent = ({ serviceType}) => {
+const ServiceComponent = ({ serviceType }) => {
   const [services, setServices] = useState([]);
   const [searchActive, setSearchActive] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [value, setValue] = useState('');
   const [tempServices, setTempServices] = useState([]);
   const [serviceCount, setServiceCount] = useState(0);
-  const [compType,setCompType]=useState('Services');
+  const [compType, setCompType] = useState('Services');
+  const [categoryName,setCategoryName] = useState([]);
 
   const fetchServices = useCallback(async () => {
     try {
       const result = await authService.getService();
-      console.log(result.data);
+      const categories = result.data.map((service) => service.category_name); // Extract category names
+      setCategoryName(categories);
       setServices(result.data);
       setTempServices(result.data);
       setServiceCount(result.data.length);
@@ -80,11 +77,11 @@ const ServiceComponent = ({ serviceType}) => {
     if (selectedValue === 'all') {
       filteredServices = tempServices;
     } else {
-    //   filteredServices = tempServices.filter(
-    //     (service) =>
-    //     //   service.status &&
-    //     //   service.status.toString().toLowerCase() === selectedValue.toLowerCase()
-    //   );
+      filteredServices = tempServices.filter(
+        (service) =>
+          service.category_name &&
+          service.category_name.toLowerCase() === selectedValue.toLowerCase()
+      );
     }
 
     setServices(filteredServices);
@@ -92,12 +89,15 @@ const ServiceComponent = ({ serviceType}) => {
   };
 
   const handleServiceDeleted = (deletedServiceId) => {
-    setServices((prevServices) => prevServices.filter((service) => service.service_id !== deletedServiceId));
+    setServices((prevServices) =>
+      prevServices.filter((service) => service.service_id !== deletedServiceId)
+    );
     setServiceCount((prevCount) => prevCount - 1);
   };
 
   setBodyColor({
-    imageUrl: 'https://img.freepik.com/free-photo/background_53876-32170.jpg?size=626&ext=jpg'
+    imageUrl:
+      'https://img.freepik.com/free-photo/background_53876-32170.jpg?size=626&ext=jpg',
   });
 
   return (
@@ -125,16 +125,24 @@ const ServiceComponent = ({ serviceType}) => {
                     value={value}
                     onChange={(e) => handleFilter(e.target.value)}
                   >
-                    <option value='all'>All {serviceType}s</option>
-                    <option value='true'>Enable</option>
-                    <option value='false'>Disable</option>
+                    <option value='all'>All services</option>
+                    {/* Dynamically populate categories based on available categories */}
+                    {categoryName.map((service) => (
+                      <option key={service} value={service}>
+                        {service}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className='p-2 bd-highlight'>
-                  <RedirectButton  />
+                  <RedirectButton />
                 </div>
                 <div className='ms-auto p-2 bd-highlight'>
-                  <SearchBox onSearch={handleSearch} searchActive={searchActive} compType={compType} />
+                  <SearchBox
+                    onSearch={handleSearch}
+                    searchActive={searchActive}
+                    compType={compType}
+                  />
                 </div>
               </div>
 
@@ -145,40 +153,43 @@ const ServiceComponent = ({ serviceType}) => {
                   exit={{ opacity: 0 }}
                 >
                   {searchResults.length > 0 ? (
-                    <div className="table-responsive">
+                    <div className='table-responsive'>
                       <h2 className='text-center'>Search Results</h2>
                       <table className='table table-hover table-light'>
-                      <thead>
-                      <tr>
-                        <th scope='col'>ID</th>
-                        <th scope='col'>Category Name</th>
-                        <th scope='col'>Subcategory Name</th>
-                        <th scope='col'>Service Name</th>
-                        <th scope='col'>Price type</th>
-                        <th scope='col'>Service type</th>
-                        <th scope='col'>Discount Price</th>
-                        <th scope='col'>Status</th>
-                        <th scope='col'>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {searchResults.map((service) => (
-                        <tr key={service.service_id}>
-                          <th scope='row'>{service.service_id}</th>
-                          <td>{service.category_name}</td>
-                          <td>{service.subcategory_name}</td>
-                          <td>{service.service_name}</td>
-                          <td>{service.price_type}</td>
-                          <td>{service.service_price}</td>
-                          <td>{service.discount_price}</td>
-                          <td>{service.status}</td>
-                          <td>
-                            <RedirectToEditService service={service} />{' '}
-                            <DeleteService service={service} onServiceDeleted={handleServiceDeleted} />
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
+                        <thead>
+                          <tr>
+                            <th scope='col'>ID</th>
+                            <th scope='col'>Category Name</th>
+                            <th scope='col'>Subcategory Name</th>
+                            <th scope='col'>Service Name</th>
+                            <th scope='col'>Price type</th>
+                            <th scope='col'>Service type</th>
+                            <th scope='col'>Discount Price</th>
+                            <th scope='col'>Status</th>
+                            <th scope='col'>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {searchResults.map((service) => (
+                            <tr key={service.service_id}>
+                              <th scope='row'>{service.service_id}</th>
+                              <td>{service.category_name}</td>
+                              <td>{service.subcategory_name}</td>
+                              <td>{service.service_name}</td>
+                              <td>{service.price_type}</td>
+                              <td>{service.service_price}</td>
+                              <td>{service.discount_price}</td>
+                              <td>{service.status}</td>
+                              <td>
+                                <RedirectToEditService service={service} />{' '}
+                                <DeleteService
+                                  service={service.service_id}
+                                  onServiceDeleted={handleServiceDeleted}
+                                />
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
                       </table>
                     </div>
                   ) : (
@@ -188,39 +199,42 @@ const ServiceComponent = ({ serviceType}) => {
               ) : (
                 <div className='col-md-12 mrg-top'>
                   <h4 className='text-center'>Total Services: {serviceCount}</h4>
-                  <div className="table-responsive">
+                  <div className='table-responsive'>
                     <table className='table table-hover table-light'>
-                    <thead>
-                      <tr>
-                      <th scope='col'>ID</th>
-                        <th scope='col'>Category Name</th>
-                        <th scope='col'>Subcategory Name</th>
-                        <th scope='col'>Service Name</th>
-                        <th scope='col'>Price type</th>
-                        <th scope='col'>Service type</th>
-                        <th scope='col'>Discount Price</th>
-                        <th scope='col'>Status</th>
-                        <th scope='col'>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {services.map((service) => (
-                          <tr key={service.service_id}>
-                          <th scope='row'>{service.service_id}</th>
-                          <td>{service.category_name}</td>
-                          <td>{service.subcategory_name}</td>
-                          <td>{service.service_name}</td>
-                          <td>{service.price_type}</td>
-                          <td>{service.service_price}</td>
-                          <td>{service.discount_price}</td>
-                          <td>{service.status}</td>
-                          <td>
-                            <RedirectToEditService service={service} />{' '}
-                            <DeleteService service={service.service_id} onServiceDeleted={handleServiceDeleted} />
-                          </td>
+                      <thead>
+                        <tr>
+                          <th scope='col'>ID</th>
+                          <th scope='col'>Category Name</th>
+                          <th scope='col'>Subcategory Name</th>
+                          <th scope='col'>Service Name</th>
+                          <th scope='col'>Price type</th>
+                          <th scope='col'>Service type</th>
+                          <th scope='col'>Discount Price</th>
+                          <th scope='col'>Status</th>
+                          <th scope='col'>Action</th>
                         </tr>
-                      ))}
-                    </tbody>
+                      </thead>
+                      <tbody>
+                        {services.map((service) => (
+                          <tr key={service.service_id}>
+                            <th scope='row'>{service.service_id}</th>
+                            <td>{service.category_name}</td>
+                            <td>{service.subcategory_name}</td>
+                            <td>{service.service_name}</td>
+                            <td>{service.price_type}</td>
+                            <td>{service.service_price}</td>
+                            <td>{service.discount_price}</td>
+                            <td>{service.status}</td>
+                            <td>
+                              <RedirectToEditService service={service} />{' '}
+                              <DeleteService
+                                service={service.service_id}
+                                onServiceDeleted={handleServiceDeleted}
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
                     </table>
                   </div>
                 </div>

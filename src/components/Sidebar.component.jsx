@@ -10,7 +10,7 @@ import {
 }from "react-icons/fa";
 import { FaCartShopping,FaArrowDownAZ } from "react-icons/fa6";
 import { MdCleaningServices } from "react-icons/md";
-import { MdEngineering } from "react-icons/md";
+import { MdEngineering,MdLocationCity } from "react-icons/md";
 import '../styles/sideBar.css';
 
 
@@ -74,6 +74,11 @@ const Sidebar = ({children}) => {
             path:"/vendor",
             name:"Vendors",
             icon:<MdEngineering />
+
+        } ,{
+            path:"/city",
+            name:"City",
+            icon:<MdLocationCity />
 
         }
 

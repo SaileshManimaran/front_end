@@ -53,6 +53,12 @@ const addVendor=(data)=>{
     return http.post('/vendors/add', data);
 }
 
+// Add city
+const addCity=(data)=>{
+    console.log(data);
+    return http.post('/city/add', data);
+}
+
 
 
 // to display profile details
@@ -67,6 +73,13 @@ return http.get('/getAll')
 
 }
 
+//to get sales
+
+const getSales=()=>{
+    return http.get('order/getSales');
+    
+    }
+
 // to get all category from category table 
 const getCategory=()=>{
     return http.get('/category/get')
@@ -78,6 +91,13 @@ const getCategory=()=>{
         return http.get('/address/get')
         
     }
+
+   // to get all cities
+   const getCity=()=>{
+    return http.get('/city/get')
+    
+}
+
 
     const getOrder=()=>{
         return http.get('/order/get');
@@ -154,11 +174,42 @@ const editUser = async (userData) => {
       throw error;
     }
   };
+
+    //edit address
+    const editAddress = async (userData) => {
+        try {
+          const response = await http.put('address/editAddress', userData);
+          return response.data;
+        } catch (error) {
+          throw error;
+        }
+      };
+
+      //editOrder
+        const editOrder = async (userData) => {
+            try {
+         const response = await http.put('order/updateOrders', userData);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   //edit Vendor
-    //edit category
+    
     const editVendor = async (userData) => {
         try {
           const response = await http.put('vendors/editVendor', userData);
+          return response.data;
+        } catch (error) {
+          throw error;
+        }
+      };
+
+       //edit city
+    const editCity = async (userData) => {
+        try {
+          const response = await http.put('city/editCity', userData);
           return response.data;
         } catch (error) {
           throw error;
@@ -206,6 +257,17 @@ const deleteSubcat=async(data)=>{
     }
 }
 
+// delete city
+const deleteCity=async(data)=>{
+    try{
+        const cityId=data;
+        return http.remove(`city/delete/${cityId}`);
+    }
+    catch(error){
+        throw error;
+    }
+}
+
 //delete vendor
 const deleteVendor=async(data)=>{
     try{
@@ -228,6 +290,17 @@ const deleteCategory=async(data)=>{
     }
 }
 
+//delete address
+const deleteAddress=async(data)=>{
+    try{
+        const categoryId=data;
+        return http.remove(`address/delete/${categoryId}`);
+    }
+    catch(error){
+        throw error;
+    }
+}
+
 
 const deleteUser=async(data)=>{
 try{
@@ -237,6 +310,17 @@ return http.remove(`/deleteUser/${userId}`);
 catch(error){
     throw error;
 }
+}
+
+//to obtain count of orders based on order date
+const getOrdersByDate=async(data)=>{
+    try{
+        const created_at=data.created_at;
+        return http.get(`order/${created_at}`);
+    }
+    catch(error){
+        throw error;
+    }
 
 
 
@@ -256,7 +340,8 @@ const methods = {
     addCategory,getByContactNumber,editUser,deleteUser,
     countUser,getAddress,addAddress,getOrder,addOrder,deleteOrder,getSubCat,addSubcat,editSubcat,getService,deleteService,
     editCategory,
-    deleteSubcat,getVendor,editVendor,addVendor,deleteVendor,deleteCategory
+    deleteSubcat,getVendor,editVendor,addVendor,deleteVendor,deleteCategory,addCity,getCity,deleteCity,editCity,editAddress,deleteAddress,getSales,
+    editOrder,getOrdersByDate
 }
 
 export default methods;

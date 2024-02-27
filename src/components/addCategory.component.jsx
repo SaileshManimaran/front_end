@@ -47,11 +47,16 @@ const UserForm = () => {
       role: ''
     });
   };
+  const handleGoBack = () => {
+    navigate("/category"); // Go back one step in history
+  };
+  
   
   
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{marginTop:"30px"}}>
+      <h5 style={{textAlign:"center"}}> ADD CATEGORY</h5>
       <div><Sidebar/></div>
      <div className='form-container'>  <label>
         Name:
@@ -67,9 +72,12 @@ const UserForm = () => {
 
     
 
-      <button type="submit">Submit</button>
+   
       </div>
-  
+      <div >
+        <button type=" btn btn-success button" onClick={handleGoBack}>Back</button>
+        <button type="submit" style={{ marginLeft:"210px"}} >Submit</button>
+      </div>
     </form>
   );
 };

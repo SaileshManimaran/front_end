@@ -5,8 +5,9 @@ import '../styles/forms.css';
 import toast from 'react-hot-toast';
 import authService from '../services/auth.service';
 import Sidebar from './Sidebar.component';
+
 const UserForm = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [validationError, setValidationError] = useState('');
 
   const [formData, setFormData] = useState({
@@ -54,45 +55,54 @@ const UserForm = () => {
       role: ''
     });
   };
-  
-  
 
+  const handleGoBack = () => {
+    navigate('/users'); // Go back one step in history
+  };
+  
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{marginTop:"30px"}}>
       <div><Sidebar/></div>
-     <div className='form-container'>  <label>
-        Name:
-        <input type="text" name="name" value={formData.name} onChange={handleChange} />
-      </label>
+      <h5 style={{textAlign:"center"}}>ADD USER</h5>
+      <div className='form-container' >
+      
+        <label>
+          Name:
+          <input type="text" name="name" value={formData.name} onChange={handleChange} />
+        </label>
 
-      <label>
-        Email:
-        <input type="email" name="email" value={formData.email} onChange={handleChange} />
-      </label>
+        <label>
+          Email:
+          <input type="email" name="email" value={formData.email} onChange={handleChange} />
+        </label>
 
-      <label>
-        Contact Number:
-        <input type="tel" name="contactNumber" value={formData.contactNumber} onChange={handleChange} />
-      </label>
-      {validationError && <p className="error-message">{validationError}</p>}
+        <label>
+          Contact Number:
+          <input type="tel" name="contactNumber" value={formData.contactNumber} onChange={handleChange} />
+        </label>
+        {validationError && <p className="error-message">{validationError}</p>}
 
 
-      <label>
-        Password:
-        <input type="password" name="password" value={formData.password} onChange={handleChange} />
-      </label>
+        <label>
+          Password:
+          <input type="password" name="password" value={formData.password} onChange={handleChange} />
+        </label>
 
-      <label>
-        Status:
-        <input type="text" name="status" value={formData.status} onChange={handleChange} />
-      </label>
+        <label>
+          Status:
+          <input type="text" name="status" value={formData.status} onChange={handleChange} />
+        </label>
 
-      <label>
-        Role:
-        <input type="text" name="role" value={formData.role} onChange={handleChange} />
-      </label>
+        <label>
+          Role:
+          <input type="text" name="role" value={formData.role} onChange={handleChange} />
+        </label>
 
-      <button type="submit">Submit</button>
+        
+      </div>
+      <div >
+        <button type=" btn btn-success button" onClick={handleGoBack}>Back</button>
+        <button type="submit" style={{ marginLeft:"210px"}} >Submit</button>
       </div>
     </form>
   );

@@ -82,13 +82,18 @@ const AddVendor = () => {
     });
   };
 
+  const handleGoBack = () => {
+    navigate("/vendor"); // Go back one step in history
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <Sidebar />
       </div>
-      <div className='card mrg_bottom'>
-        <h3 className='p-2 bd-highlight'>Add new vendor</h3>
+
+        <h3 className='p-2 bd-highlight' style={{textAlign:"center"}}>Add new vendor</h3>
+        <div className='form-container'>
         <label>
             Category Name:
             <select
@@ -201,7 +206,10 @@ const AddVendor = () => {
           <input type='time' name='closeTime' value={formData.closeTime} onChange={handleChange} />
         </label>
 
-        <button type='submit'>Submit</button>
+      </div>
+      <div>
+      <button type=" btn btn-success button" onClick={handleGoBack}>Back</button>
+        <button type="submit" style={{ marginLeft:"210px"}} >Submit</button>
       </div>
     </form>
   );

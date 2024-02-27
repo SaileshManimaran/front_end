@@ -79,6 +79,11 @@ const EditUserComponent = () => {
   });
 };
 
+const handleGoBack = () => {
+  navigate("/users"); // Go back one step in history
+};
+
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -115,7 +120,10 @@ const EditUserComponent = () => {
           <input type="text" name="role" value={formData.role} onChange={handleChange} />
         </label>
 
-        <button type="submit">Submit</button>
+      </div>
+      <div >
+        <button type=" btn btn-success button" onClick={handleGoBack}>Back</button>
+        <button type="submit" style={{ marginLeft:"210px"}} >Submit</button>
       </div>
     </form>
   );

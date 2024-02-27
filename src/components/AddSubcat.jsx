@@ -59,15 +59,16 @@ const UserForm = () => {
        
     });
   };
-  
+  const handleGoBack = () => {
+    navigate("/subcategory"); // Go back one step in history
+  };
   
 
   return (
-      <div className='card mrg_bottom' >
-        <h3 className='p-2 bd-highlight'>Add new Subcategory</h3>
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} >
       <div><Sidebar/></div>
-     <div>
+      <h5 className='p-2 bd-highlight'>Add new Subcategory</h5>
+     <div className='form-container'>
      <label>
             Category Name:
             <select
@@ -106,10 +107,13 @@ const UserForm = () => {
 
   
 
-<button type="submit">Submit</button>
+      </div>
+    <div >
+        <button type=" btn btn-success button" onClick={handleGoBack}>Back</button>
+        <button type="submit" style={{ marginLeft:"210px"}} >Submit</button>
       </div>
     </form>
-    </div>
+
   );
 };
 

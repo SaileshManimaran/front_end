@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import toast from 'react-hot-toast';
-import authService from '../services/auth.service';
-import SideBar from './Sidebar.component';
+import authService from '../../services/auth.service';
+import SideBar from '../Sidebar.component';
 
-import SearchBox from './seachBox.component';
+import SearchBox from '../seachBox.component';
 import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import { motion } from 'framer-motion';
-import setBodyColor from '../funcs/setBodyColor';
-import NavBarComponent from './nav-bar.component';
-import DeleteOrder from '../funcs/deleteOrder';
+import setBodyColor from '../../funcs/setBodyColor';
+import NavBarComponent from '../nav-bar.component';
+import DeleteOrder from '../../funcs/deleteOrder';
 
 const RedirectButton = () => {
   const navigate = useNavigate();
@@ -21,6 +21,10 @@ const RedirectButton = () => {
   return <button className='btn btn-primary btn-md mt-1' onClick={handleClick}>Add Orders</button>;
 };
 
+
+
+
+
 const OrderComponent = () => {
   const [orders, setOrders] = useState([]);
   const [searchActive, setSearchActive] = useState(false);
@@ -32,11 +36,16 @@ const OrderComponent = () => {
 
   const navigate = useNavigate(); // Use useNavigate here
 
-  const handleRowClick = (selectedOrder) => {
-    // Navigate to the "/viewOrder" route with the orderId
-console.log(selectedOrder);
-    navigate(`/viewOrder`, { state: { orderDetails: selectedOrder } });
-  };
+  
+
+const handleRowClick = (selectedOrder) => {
+    // Check if the selectedOrder meets the condition to skip redirection
+    if (!selectedOrder.Action){        // Navigate to the "/viewOrder" route with the orderId
+        console.log(selectedOrder);
+        navigate(`/viewOrder`, { state: { orderDetails: selectedOrder } });
+    }
+};
+
 
   const handleOrderDeleted = (deletedOrderId) => {
     // Update the orders state by removing the deleted user
@@ -146,7 +155,7 @@ console.log(selectedOrder);
                         <th>Decision</th>                        
                     
                         <th>Customer id</th>
-                        <th>Action</th>
+                        {/* <th>Action</th> */}
                        
                           </tr>
                         </thead>
@@ -164,7 +173,11 @@ console.log(selectedOrder);
                               <td>{results.deliveredAmount}</td>
                               <td>{results.decision}</td>
                           <td>{results.customer_id}</td>
-                            <td><DeleteOrder order={results} onOrderDeleted={handleOrderDeleted}/></td></tr>
+                              {/* <td> */}
+                              {/* <RedirectToEditOrder order={results} />{' '} */}
+                              {/* <DeleteOrder order={results} onOrderDeleted={handleOrderDeleted}/> */}
+                              {/* </td> */}
+                              </tr>
                           ))}
                         </tbody>
                       </table>
@@ -191,7 +204,7 @@ console.log(selectedOrder);
                         <th>Decision</th>                        
                     
                         <th>Customer id</th>
-                        <th>Action</th>
+                        {/* <th>Action</th> */}
                        
                       </tr>
                     </thead>
@@ -209,7 +222,11 @@ console.log(selectedOrder);
                               <td>{results.deliveredAmount}</td>
                               <td>{results.decision}</td>
                           <td>{results.customer_id}</td>
-                            <td><DeleteOrder order={results} onOrderDeleted={handleOrderDeleted}/></td>                            </tr>
+                            {/* <td> */}
+                            {/* <RedirectToEditOrder order={results} />{' '}<DeleteOrder order={results} onOrderDeleted={handleOrderDeleted}/> */}
+                            
+                            {/*  </td>                             */}
+                            </tr> 
                           ))}
                         </tbody>
                   </table>
